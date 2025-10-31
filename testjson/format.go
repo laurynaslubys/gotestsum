@@ -537,7 +537,7 @@ func buildkiteFormat(out io.Writer, verbose bool) EventFormatter {
 
 	printOutput := func(output []string, didNotPass bool) {
 		if verbose || didNotPass {
-			// prevert erroneous groups from test output by prefixing lines with markers by an empty string
+			// prevent erroneous groups from test output by prefixing lines with markers by an empty string
 			for _, item := range output {
 				for _, bkMarker := range markers {
 					if strings.HasPrefix(item, bkMarker) {
@@ -549,7 +549,6 @@ func buildkiteFormat(out io.Writer, verbose bool) EventFormatter {
 		}
 	}
 
-	//nolint:errcheck
 	return eventFormatterFunc(func(event TestEvent, exec *Execution) error {
 		key := name{Package: event.Package, Test: event.Test}
 
