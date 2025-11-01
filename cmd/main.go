@@ -338,7 +338,10 @@ func run(opts *options) error {
 }
 
 func finishRun(opts *options, exec *testjson.Execution, exitErr error) error {
-	testjson.PrintSummary(opts.stdout, exec, opts.hideSummary.value)
+	testjson.PrintSummaryWithOpts(opts.stdout, exec, testjson.SummaryOptions{
+		Summary: opts.hideSummary.value,
+		Format:  opts.format,
+	})
 
 	if err := writeJUnitFile(opts, exec); err != nil {
 		return fmt.Errorf("failed to write junit file: %w", err)
